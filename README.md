@@ -1,23 +1,26 @@
-﻿# FinQA-RAG-Assistant
+# finqa-rag-assistant
 
 Educational RAG pipeline for financial question answering.
 
-## Repository Contents
+## Project Scope
 
-- `main.py` - main run entrypoint.
-- `baseline.py` - baseline implementation.
-- `src/data_loader.py` - dataset loading and preprocessing.
-- `src/embedding_service.py` - embedding generation and management.
-- `src/retriever.py` - retrieval and reranking logic.
-- `src/generator.py` - answer generation.
-- `src/pipeline.py` - end-to-end pipeline orchestration.
-- `questions.csv` and `train_data.csv` - input datasets.
+End-to-end retrieval-augmented generation flow over a financial document dataset.
+
+## Repository Structure
+
+- `main.py`
+- `baseline.py`
+- `src/data_loader.py`
+- `src/embedding_service.py`
+- `src/retriever.py`
+- `src/generator.py`
+- `src/pipeline.py`
+- `questions.csv`
+- `train_data.csv`
 
 ## Implemented Functionality
 
-The code implements a standard RAG flow:
-
-- data chunk preparation,
-- embedding-based retrieval,
-- reranking stage,
-- response generation over retrieved financial context.
+- document chunk preparation
+- embedding-based retrieval
+- reranking stage
+- answer generation from retrieved context
