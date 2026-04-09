@@ -1,26 +1,18 @@
-# finqa-rag-assistant
+# FinQA RAG Assistant
 
-Educational RAG pipeline for financial question answering.
+[Русская версия](#ru) | [English version](#en)
 
-## Project Scope
+## RU
 
-End-to-end retrieval-augmented generation flow over a financial document dataset.
+### TL;DR
+RAG-ассистент для финансовых вопросов: embedding retrieval, reranking и генерация ответа по извлечённому контексту.
 
-## Repository Structure
+### Гипотезы
+1. Retrieval перед генерацией снижает hallucination risk.
+2. Reranking улучшает релевантность контекста.
+3. Domain corpus повышает точность ответов.
 
-- `main.py`
-- `baseline.py`
-- `src/data_loader.py`
-- `src/embedding_service.py`
-- `src/retriever.py`
-- `src/generator.py`
-- `src/pipeline.py`
-- `questions.csv`
-- `train_data.csv`
+## EN
 
-## Implemented Functionality
-
-- document chunk preparation
-- embedding-based retrieval
-- reranking stage
-- answer generation from retrieved context
+### Overview
+A finance-oriented RAG assistant combining corpus preparation, retrieval, reranking, and context-grounded generation.
