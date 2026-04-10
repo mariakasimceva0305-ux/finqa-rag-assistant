@@ -23,11 +23,12 @@ def main():
         description="FinAnswer - RAG система для финансового консультирования",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Примеры использования:
-  python main.py --generate                     # Генерация ответов для всех вопросов
-  python main.py --test                         # Тест на 3 вопросах
-  python main.py --generate --no_rerank         # Без реранкинга
-  python main.py --model "llama-3-70b"          # С указанием модели
+Примеры (из корня репозитория):
+  python main.py --generate                     # Ответы на все строки из questions.csv
+  python main.py --test                         # Три встроенных тестовых вопроса
+  python main.py --generate --no_rerank         # Генерация без rerank
+  python main.py --generate --llm_model openrouter/meta-llama/llama-3-70b-instruct
+  python main.py --test --embedding_model text-embedding-3-small
         """
     )
     

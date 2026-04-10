@@ -44,6 +44,7 @@
 
 - `python main.py --test` или `--generate` — после `config.validate()` будет сообщение об ошибке и ненулевой код выхода (ожидаемо).
 - `python scripts/evaluate.py --mode baseline|full|both` — не падает по импортам; в `reports/*_metrics.json` пишется ошибка валидации, `questions_total: 0`, без выдуманных latency.
+- `python baseline.py` — сразу завершится с сообщением об отсутствии `LLM_API_KEY` (ожидаемо).
 
 ### С ключами API
 
@@ -57,7 +58,7 @@
 
 Флаг `--max-questions N` ограничивает число вопросов в evaluator.
 
-`python baseline.py` — отдельный скрипт в корне (только LLM), читает `questions.csv` в корне.
+`python baseline.py` — legacy: прямой вызов LLM по `questions.csv` в корне (те же схемы колонок, что и у `DataLoader`: `ID вопроса`/`Вопрос` или `id`/`question`); результат — `submission.csv` в корне. Нужен `LLM_API_KEY`; для офлайн-оценки RAG используйте `scripts/evaluate.py`.
 
 ## Результаты
 
@@ -79,4 +80,4 @@
 
 - без ключей API пайплайн и evaluator не выполняются;
 - качество генерации зависит от полноты найденных фрагментов и доступности внешних API;
-- `baseline.py` и основной контур используют `questions.csv` в корне (путь настраивается в `src/config.py`).
+- `baseline.py` и основной контур читают один и тот же файл `questions.csv` в корне (путь по умолчанию — в `src/config.py`); для baseline нужен только `LLM_API_KEY` в окружении / `.env`, иначе скрипт завершится с ошибкой.
