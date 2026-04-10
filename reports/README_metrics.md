@@ -1,0 +1,27 @@
+# Eval summary (baseline vs full)
+
+## baseline (без rerank)
+
+```json
+{
+  "mode": "baseline",
+  "error": "API ключи не установлены. Проверьте файл .env",
+  "questions_total": 0,
+  "success_rate": 0.0,
+  "note": "Задайте LLM_API_KEY и EMBEDDER_API_KEY (например в .env) и повторите запуск."
+}
+```
+
+## full (с rerank)
+
+```json
+{
+  "mode": "full",
+  "error": "API ключи не установлены. Проверьте файл .env",
+  "questions_total": 0,
+  "success_rate": 0.0,
+  "note": "Задайте LLM_API_KEY и EMBEDDER_API_KEY (например в .env) и повторите запуск."
+}
+```
+
+Метрики качества retrieval (HitRate/MRR/Recall) не считаются: в `questions.csv` нет эталонного идентификатора документа.

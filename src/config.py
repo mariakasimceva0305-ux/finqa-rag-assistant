@@ -31,9 +31,10 @@ class Config:
     LLM_MODEL: str = "openrouter/meta-llama/llama-3-70b-instruct"
     RERANK_MODEL: str = "deepinfra/Qwen/Qwen3-Reranker-4B"
     
-    # Пути к данным
-    TRAIN_DATA_PATH: str = "./data/raw/train_data.csv"
-    QUESTIONS_PATH: str = "./data/raw/questions.csv"
+    # Пути к данным (файлы в корне репозитория)
+    TRAIN_DATA_PATH: str = "./train_data.csv"
+    QUESTIONS_PATH: str = "./questions.csv"
+    OUTPUT_PATH: str = "./data/processed/submission.csv"
     
     # Параметры генерации
     TEMPERATURE: float = 0.3
@@ -51,4 +52,4 @@ class Config:
         return self
 
 
-config = Config().validate()
+config = Config()

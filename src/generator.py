@@ -4,7 +4,7 @@
 
 from openai import OpenAI
 from typing import List
-from .config import config
+from config import config
 
 
 class AnswerGenerator:

@@ -12,6 +12,7 @@ from pathlib import Path
 # Добавляем путь к src для импорта модулей
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
+from config import config
 from pipeline import FinancialQAPipeline
 
 
@@ -52,7 +53,9 @@ def main():
     if not (args.generate or args.test):
         parser.print_help()
         return
-    
+
+    config.validate()
+
     print("=" * 60)
     print("FinAnswer: RAG-система для финансового консультирования")
     print("=" * 60)

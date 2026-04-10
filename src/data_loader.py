@@ -5,7 +5,7 @@
 import pandas as pd
 from typing import List, Tuple
 from tqdm import tqdm
-from .config import config
+from config import config
 
 
 class DataLoader:
