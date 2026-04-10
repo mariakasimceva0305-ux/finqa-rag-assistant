@@ -8,7 +8,7 @@ import time
 from typing import List, Tuple, Optional
 from openai import OpenAI
 from tqdm import tqdm
-from config import config
+from .config import config
 
 
 class EmbeddingService:

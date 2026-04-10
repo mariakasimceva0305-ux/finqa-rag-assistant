@@ -6,8 +6,8 @@ import numpy as np
 import requests
 import time
 from typing import List, Tuple
-from config import config
-from embedding_service import EmbeddingService
+from .config import config
+from .embedding_service import EmbeddingService
 
 
 class Retriever:

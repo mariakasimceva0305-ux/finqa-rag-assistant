@@ -15,11 +15,12 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "src"
-sys.path.insert(0, str(SRC))
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-from config import config  # noqa: E402
-from pipeline import FinancialQAPipeline  # noqa: E402
+from src.config import config  # noqa: E402
+from src.data_loader import DataLoader  # noqa: E402
+from src.pipeline import FinancialQAPipeline  # noqa: E402
 
 
 def _percentile(sorted_vals: list[float], p: float) -> float:
@@ -56,8 +57,6 @@ def run_mode(mode: str, output_dir: Path, max_questions: int | None) -> dict:
 
     pipeline = FinancialQAPipeline(use_rerank=use_rerank)
     pipeline.prepare_knowledge_base()
-
-    from data_loader import DataLoader  # noqa: E402
 
     df = DataLoader.load_questions()
     if max_questions is not None:

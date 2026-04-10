@@ -34,33 +34,34 @@
 
 ## Запуск
 
-Требуются `LLM_API_KEY` и `EMBEDDER_API_KEY` (переменные окружения или `.env` в корне).
+Зависимости: `pip install -r requirements.txt` (для минимального запуска достаточно `openai`, `python-dotenv`, `pandas`, `numpy`, `requests`, `tqdm`).
 
-```bash
-python -m venv .venv
-# Windows: .venv\Scripts\activate
-pip install -r requirements.txt   # или минимально: openai python-dotenv pandas numpy requests tqdm
+Команды выполняются **из корня репозитория**. Код лежит в пакете `src/`; `main.py` добавляет корень в `sys.path` и импортирует `src.pipeline`, `src.config`.
 
-python main.py --test              # 3 встроенных вопроса
-python main.py --generate          # все вопросы из questions.csv
+### Без ключей API
 
-python baseline.py                 # упрощённый контур только LLM, читает ./questions.csv (корень)
-```
+`LLM_API_KEY` и `EMBEDDER_API_KEY` не заданы:
 
-Оценка задержек и успешности (без метрик качества поиска по gold):
+- `python main.py --test` или `--generate` — после `config.validate()` будет сообщение об ошибке и ненулевой код выхода (ожидаемо).
+- `python scripts/evaluate.py --mode baseline|full|both` — не падает по импортам; в `reports/*_metrics.json` пишется ошибка валидации, `questions_total: 0`, без выдуманных latency.
 
-```bash
-python scripts/evaluate.py --mode baseline --output-dir reports   # без rerank
-python scripts/evaluate.py --mode full --output-dir reports         # с rerank
-# или оба режима и общий README_metrics.md:
-python scripts/evaluate.py --mode both --output-dir reports
-```
+### С ключами API
 
-Опция `--max-questions N` ограничивает число строк для быстрого прогона.
+В `.env` или в окружении заданы оба ключа:
+
+- `python main.py --test` — три тестовых вопроса без `questions.csv`.
+- `python main.py --generate` — все строки из `questions.csv`.
+- `python scripts/evaluate.py --mode baseline` — замеры без rerank.
+- `python scripts/evaluate.py --mode full` — с rerank.
+- `python scripts/evaluate.py --mode both` — оба режима и общий `reports/README_metrics.md`.
+
+Флаг `--max-questions N` ограничивает число вопросов в evaluator.
+
+`python baseline.py` — отдельный скрипт в корне (только LLM), читает `questions.csv` в корне.
 
 ## Результаты
 
-Артефакты создаёт только `scripts/evaluate.py`:
+Артефакты пишет `scripts/evaluate.py` в каталог `--output-dir` (по умолчанию `reports/`):
 
 | Файл | Содержание |
 |------|------------|
@@ -68,11 +69,11 @@ python scripts/evaluate.py --mode both --output-dir reports
 | `reports/full_metrics.json` | режим с rerank |
 | `reports/baseline_examples.csv` | примеры по вопросам |
 | `reports/full_examples.csv` | примеры по вопросам |
-| `reports/README_metrics.md` | краткая сводка |
+| `reports/README_metrics.md` | сводка (`--mode both` перезаписывает одним файлом оба режима) |
 
-**Текущее состояние репозитория после последнего прогона в среде без ключей:** в JSON зафиксирована ошибка конфигурации (`questions_total: 0`). Чтобы получить численные метрики задержек и `success_rate`, задайте ключи и выполните `python scripts/evaluate.py --mode both` — значения появятся в тех же файлах.
+Без ключей в JSON честно указывается причина и `questions_total: 0`. С ключами там же появляются `latency_*`, `success_rate`, `avg_context_chunks`.
 
-Поле `retrieval_quality_metrics` в JSON всегда `not_computed_no_gold_labels`, пока в данных нет эталонных соответствий вопрос → документ.
+Поле `retrieval_quality_metrics` остаётся `not_computed_no_gold_labels`: в `questions.csv` нет эталонного идентификатора документа для retrieval-метрик.
 
 ## Ограничения
 

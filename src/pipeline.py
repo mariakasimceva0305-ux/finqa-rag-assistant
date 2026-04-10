@@ -6,11 +6,11 @@ import pandas as pd
 import time
 from tqdm import tqdm
 from typing import Optional
-from config import config
-from data_loader import DataLoader
-from embedding_service import EmbeddingService
-from retriever import Retriever
-from generator import AnswerGenerator
+from .config import config
+from .data_loader import DataLoader
+from .embedding_service import EmbeddingService
+from .retriever import Retriever
+from .generator import AnswerGenerator
 
 
 class FinancialQAPipeline:

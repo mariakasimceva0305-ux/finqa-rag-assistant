@@ -9,11 +9,13 @@ import os
 import sys
 from pathlib import Path
 
-# Добавляем путь к src для импорта модулей
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+# Корень репозитория в PYTHONPATH — пакет `src`
+_ROOT = Path(__file__).resolve().parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
-from config import config
-from pipeline import FinancialQAPipeline
+from src.config import config
+from src.pipeline import FinancialQAPipeline
 
 
 def main():
